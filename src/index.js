@@ -1,24 +1,23 @@
-// need webpack to do this -- normally node only uses require  fs is filesystem
-import fs from "fs";
+import https from "https";
 
-// don't really use timeout irl; usually use promise instead
-setTimeout(() => {
-  console.log("hi");
-}, 4000);
-// node callbacks need to be set up with err first THEN results
-//  basically an event listener
-fs.readFile(
-  __filename,
-  "utf8",
-  (err, results) => {
-    if (err) {
-      console.error(err);
-    } else {
-      // TODO: Add some content to file
-      // Write the file to new directory
-      // Create a directory
-      console.log(results);
-    }
+// straight from the documentation
+const req = https.request(
+  {
+    hostname: "google.com",
+    port: 443,
+    method: "GET",
+    path: "/",
   },
-  4000
+
+  (res) => {
+    res.on("data", (data) => {
+      process.stdout.write(data);
+    });
+
+    res.on("error", (error) => {
+      console.error(error);
+    });
+  }
 );
+
+req.end();
