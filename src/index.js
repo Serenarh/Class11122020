@@ -1,23 +1,9 @@
-import https from "https";
+import https from "http";
 
-// straight from the documentation
-const req = https.request(
-  {
-    hostname: "google.com",
-    port: 443,
-    method: "GET",
-    path: "/",
-  },
+const interval = setInterval(() => {
+  console.log("hi");
+}, 200);
 
-  (res) => {
-    res.on("data", (data) => {
-      process.stdout.write(data);
-    });
-
-    res.on("error", (error) => {
-      console.error(error);
-    });
-  }
-);
-
-req.end();
+setTimeout(() => {
+  clearInterval(interval);
+}, 2000);
