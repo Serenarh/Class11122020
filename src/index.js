@@ -1,14 +1,12 @@
-// need to destructure promises
-// renaming using as keyword
-import { promises as fs } from "fs";
+import got from "got";
 
-fs.readFile(__filename)
-  .then((fileContents) => {
-    fs.writeFile("test.txt", fileContents);
-  })
-  .then(() => {
-    console.log("file written");
+got("https://www.cnn.com")
+  .then((res) => {
+    console.log(res);
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err.message);
+  })
+  .finally(() => {
+    console.info("Class is over!");
   });
